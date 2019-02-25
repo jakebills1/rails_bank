@@ -15,8 +15,10 @@ class AccountsController < ApplicationController
     @account = current_user.accounts.new(account_params)
 
     if @account.save
+      flash[:success] = "Account created"
       redirect_to accounts_path
     else
+      flash[:error] = "Error #{@account.errors.full_messages.join("\n")}"
       render :new
     end
   end
